@@ -5,37 +5,21 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
+
 # Creating an instance of the Flask
 app = Flask(__name__)
 
+
+#DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 #database settings
 app.config.update(
-    SECRET_KEY='topsecret',
-    SQLALCHEMY_DATABASE_URI='mysql://pipuser:PiPU12323%%!123@flaskdb.c09ylvqoqhhn.eu-west-1.rds.amazonaws.com/flaskdb',
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SECRET_KEY= 'Avankia1',
+    SQLALCHEMY_DATABASE_URI='postgresql://rooter:Avankia1@kiran-db.c09ylvqoqhhn.eu-west-1.rds.amazonaws.com/flaskdb',
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
 )
 
 # pass db instance
 db = SQLAlchemy(app)
-
-
-class Mysqlrdsdb(db.Model):
-    __tablename__ = "my_sample_table"
-
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
-
-    def __repr__(self):
-        return "The id is {}, Name is {}".format(self.id, self.name)
-
-
-
-
 
 
 # First / root of the flask app
@@ -82,7 +66,23 @@ def health_rds():
 @app.route('/diag')
 def status_cheker():
     return "OK"
+
+class Publication(db.Model):
+    __tablename__ = 'publication'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    def __repr__(self):
+        return 'The id is {}, Name is is {}'.format(self.id, self.name)
+
+# db.create_all()
 # Run the file direct... do not import to anything else
 if __name__ == '__main__':
+    print("Kiran")
     db.create_all()
-    app.run(host='127.0.0.1')
+    app.run(debug=True)
