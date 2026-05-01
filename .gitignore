@@ -1,3 +1,12 @@
-flaskvirtenv
-__pycache__
-.idea
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+*.db
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+instance/
+migrations/
